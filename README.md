@@ -13,3 +13,6 @@ A FastAPI-based NLP service for text summarization and keyword extraction.
 提供 API 端點，讓前端或其他應用存取
 
 這個專案結合 FastAPI（後端）+ AI（NLP）+ PostgreSQL（數據儲存）
+
+另外新增:
+ FastAPI 同時提供 API 和 前端頁面，用 Jinja2 模板引擎 來渲染 HTML，讓使用者可以輸入文本，並即時獲得 摘要與關鍵字。

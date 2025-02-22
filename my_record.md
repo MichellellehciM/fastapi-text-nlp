@@ -1,6 +1,6 @@
  # 開發過程記錄
 
-## 2025-02-20 環境設置
+## 2025-02-20 ~ 2025-02-21 環境設置
 - 建立新 repository 名稱 fastapi-text-nlp
     - 初始化 README.md 和 .gitignore
     - git clone 到本地 
@@ -22,9 +22,20 @@
 - 建立 .env
     - 填入 PostgreSQL 的連線資訊
     - 安裝 `pip install python-dotenv` (讀取 .env)
+- 將預設分支從 main 改成 dev  (GitHub setting)
+- 安裝 `pip install jinja2 fastapi aiofiles`
 
-新增:
- FastAPI 同時提供 API 和 前端頁面，用 Jinja2 模板引擎 來渲染 HTML，讓使用者可以輸入文本，並即時獲得 摘要與關鍵字。
+## 2025-02-21 Issue 1: 設置 FastAPI 環境
+- 建立 main.py （FastAPI 入口）
+    - (測試) API 啟動 FastAPI `uvicorn app.main:app --reload`
+## 2025-02-22 Issue 2: 設置 FastAPI 環境
+- 建立 database.py  (連線到 PostgreSQL 資料庫) 將查詢結果存入 summarization_history 資料表
+    `python -c "from app.database import Base, engine; import app.models; Base.metadata.create_all(bind=engine)"`
+
+
+pip install python-multipart
+
+
 
 
 ## 套件與主要用途
@@ -38,6 +49,8 @@
 | **Pydantic**  | 資料驗證與序列化        |
 | **Scikit-learn** | 機器學習 (ML)          |
 | **spaCy**     | 自然語言處理 (NLP)     |
+| **Jinja2**    | 用於模板渲染 (HTML)    |
+| **aiofiles**  | 非同步文件處理          |
 
 ---
 
@@ -48,4 +61,8 @@
 - **用 Pydantic 來驗證 API 輸入**：確保請求的資料符合 API 規範。
 - **用 Scikit-learn 來訓練機器學習模型**：實現分類、回歸或聚類等機器學習任務。
 - **用 spaCy 來進行 NLP 分析**：進行詞性標註、實體辨識與文本解析等自然語言處理工作。
+- **用 Jinja2 來渲染 HTML 頁面**：建立動態網頁，顯示結果或提供表單。
+- **用 aiofiles 進行非同步文件處理**：提升檔案讀寫的效能，例如處理上傳的文本檔案或日誌記錄。
+
+
 
