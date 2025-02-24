@@ -4,20 +4,24 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>FastAPI NLP - 文本摘要 & 關鍵字提取</title>
+    <link rel="stylesheet" href="{{ url_for('static', path='style.css') }}">
 </head>
 <body>
-    <h1>文本摘要 & 關鍵字提取</h1>
+    <h1>文章摘要 & 關鍵字提取</h1>
+
     <form action="/summarize" method="post">
-        <textarea name="text" placeholder="請輸入文本"></textarea>
+        <textarea name="text" placeholder="請輸入文本..."></textarea>
         <button type="submit">生成摘要</button>
     </form>
 
     {% if summary %}
-    <h2>摘要：</h2>
-    <p>{{ summary }}</p>
+    <div class="result-container">
+        <h3>📌 摘要：</h3>
+        <div class="summary">{{ summary }}</div>
 
-    <h2>關鍵字：</h2>
-    <p>{{ keywords }}</p>
+        <h3>🔑 關鍵字：</h3>
+        <div class="keywords">{{ keywords }}</div>
+    </div>
     {% endif %}
 </body>
 </html>
