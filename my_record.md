@@ -10,20 +10,20 @@
 - 建立開發環境
     - 虛擬環境 `py -3.11 -m venv .venv`
     - 啟用虛擬環境 `.venv/Scripts/activate`
-    - 安裝相關套件 `pip install fastapi uvicorn sqlalchemy psycopg2 pydantic scikit-learn spacy`
+    - 安裝相關套件 fastapi, uvicorn, sqlalchemy, psycopg2, pydantic, scikit-learn, spacy
     - 新增README.md
     - 新增requirements.txt
     - 下載 SpaCy 英文/中文語言模型 `python -m spacy download en_core_web_sm` `python -m spacy download en_core_web_sm`
 - 設定 PostgreSQL
-    - 登入 `psql -U postgres`
+    - 登入 postgres
     - 建立新 database `create database nlp;`
     - 連到 nlp database `\c nlp`
-    - 安裝 PostgreSQL 與 Python 的連接器 `pip install psycopg2-binary`
+    - 安裝 PostgreSQL 與 Python 的連接器 psycopg2-binary
 - 建立 .env
     - 填入 PostgreSQL 的連線資訊
-    - 安裝 `pip install python-dotenv` (讀取 .env)
+    - 安裝 python-dotenv (讀取 .env)
 - 將預設分支從 main 改成 dev  (GitHub setting)
-- 安裝 `pip install jinja2 fastapi aiofiles`
+- 安裝 jinja2, fastapi, aiofiles
 
 ## 2025-02-21 Issue 1: 設置 FastAPI 環境
 - 建立 main.py （FastAPI 入口）
@@ -36,8 +36,6 @@
         4. 定義首頁 / 的路由
         5. 載入 routes.py（API 路由）
         6. 啟動 FastAPI 伺服器
-
-
 
 ## 2025-02-22 Issue 2: 設置 FastAPI 環境
 - 建立 database.py  (連線到 PostgreSQL 資料庫, 之後可將查詢結果存入 summarization_history 資料表)
@@ -57,11 +55,16 @@
         5. 摘要輸出為條列式格式，提升可讀性
         6. 過濾停用詞（適用於中文 TextRank 提取關鍵字）
 
-## 2025-02-24 
-- 建立 index.html 和 style.css
-
-
-
+## 2025-02-24 完成前端頁面
+- 建立 index.html（顯示輸入框與結果）
+- 建立 style.css（美化前端介面）
+- (測試) 
+    1. API 啟動 FastAPI
+    ```
+    uvicorn app.main:app --reload
+    ```
+    2. 點進 http://127.0.0.1:8000/summerize
+    3. 輸入 中文/英文 文章段落 會生成內容摘要和關鍵字 
 
 
 ## 套件與主要用途
@@ -102,23 +105,23 @@
 ---
 
 ### **套件組合的應用**
-#### **✅ Web API 開發**
+#### ** Web API 開發**
 - **用 FastAPI 建 API**：開發高效能的 Web API 應用程式。
 - **用 Uvicorn 來運行**：作為 ASGI 伺服器運行 FastAPI 應用。
 - **用 SQLAlchemy + psycopg2 來存取 PostgreSQL**：ORM 模型操作資料庫。
 
-#### **✅ 自然語言處理（NLP）**
+#### ** 自然語言處理（NLP）**
 - **用 spaCy 進行 NLP 分析**：詞性標註、命名實體辨識（NER）、依存關係分析。
 - **用 `zh_core_web_sm` & `en_core_web_sm` 作為 NLP 模型**：支援中文 & 英文的文本處理。
 - **用 `spacy_pkuseg` 提高中文分詞準確度**。
 - **用 jieba 進行更靈活的中文分詞**。
 
-#### **✅ 機器學習**
+#### ** 機器學習**
 - **用 Scikit-learn 來訓練 ML 模型**：可用於分類、回歸、聚類等任務。
 - **用 networkx 進行圖論分析**：支援 **TextRank（關鍵字提取）與 LexRank（文本摘要）**。
 - **用 joblib 來存儲與載入模型**。
 
-#### **✅ 其他輔助功能**
+#### ** 其他輔助功能**
 - **用 Jinja2 來渲染 HTML 頁面**：建立動態網頁，顯示結果或提供表單。
 - **用 aiofiles 進行非同步文件處理**：提升檔案讀寫效能，例如處理上傳的文本檔案。
 - **用 requests 發送 API 請求**：與外部 API 交互，獲取資料。
