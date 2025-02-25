@@ -66,6 +66,17 @@
     2. 點進 http://127.0.0.1:8000
     3. 輸入 中文/英文 文章段落 會生成內容摘要和關鍵字 
 
+## 2025-02-25 完成部署
+- 安裝 Docker desktop 
+- 建立 Dockerfile
+- 建立 docker-compose.yml
+- 建立 Docker image (會根據 Dockerfile 設定檔案執行)
+    `docker build -t fastapi-text-nlp .`
+- 運行 Docker container
+    `docker run -p 8000:8000 fastapi-text-nlp`
+- 使用 docker-compose 啟動服務
+    `docker-compose up -d` (FastAPI 會自動連接 PostgreSQL，並且都會在 Docker 內運行)
+
 
 ## 套件與主要用途
 
