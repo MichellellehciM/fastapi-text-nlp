@@ -5,6 +5,8 @@ from fastapi.responses import HTMLResponse
 from app.routes import router  # ✅ 掛載 routes.py
 from fastapi.templating import Jinja2Templates
 from fastapi.staticfiles import StaticFiles
+import os
+import uvicorn
 
 
 # 初始化 FastAPI
@@ -23,5 +25,10 @@ def home(request: Request):
 app.include_router(router)
 
 if __name__ == "__main__":
-    import uvicorn
-    uvicorn.run(app, host="0.0.0.0", port=8000)
+    # uvicorn.run(app, host="0.0.0.0", port=8000)
+    port = int(os.getenv("PORT", 8000))  # 🔹 Railway 會自動提供 PORT
+    uvicorn.run(app, host="0.0.0.0", port=port)
+
+
+
+
