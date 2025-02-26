@@ -2,34 +2,24 @@ import os
 from dotenv import load_dotenv
 from sqlalchemy import create_engine
 from sqlalchemy.ext.declarative import declarative_base
-from sqlalchemy.orm import declarative_base ,sessionmaker
+from sqlalchemy.orm import sessionmaker
 
-load_dotenv()
+# 只在本機載入 .env，Railway 不會讀取
+if os.getenv("RAILWAY_ENVIRONMENT_NAME") is None:
+    load_dotenv()
 
+#  Railway 使用 DATABASE_URL
+DB_URL = os.getenv("DATABASE_URL") if os.getenv("RAILWAY_ENVIRONMENT_NAME") else os.getenv("DB_URL")
 
-DATABASE_URL = os.getenv("DATABASE_URL")  # Railway的變數
-
-# 當沒有 DATABASE_URL 變數時，使用本地端的 PostgreSQL 連線資訊
-if not DATABASE_URL:
-    DB_NAME = os.getenv("DB_NAME")
-    DB_USER = os.getenv("DB_USER")
-    DB_PASSWORD = os.getenv("DB_PASSWORD") 
-    DB_HOST = os.getenv("DB_HOST")
-    DB_PORT = os.getenv("DB_PORT")
-    DB_URL = os.getenv("DB_URL")
-
-# PostgreSQL 連線字串
-# DB_URL = os.getenv("DB_URL")  
-
+#  確保 DB_URL 不是 None
+if not DB_URL:
+    raise ValueError("❌ DATABASE_URL or DB_URL is not set. Please check your environment variables.")
 
 # 建立 SQLAlchemy 資料庫引擎
 engine = create_engine(DB_URL)
 
-# 建 ORM clasee 的基底類別
+# 建立 ORM 的基底類別
 Base = declarative_base()
 
-# 建資料庫 Session（管理資料庫連線）
+# 建立 Session（管理資料庫連線）
 SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
-
-
-
