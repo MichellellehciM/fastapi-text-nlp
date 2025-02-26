@@ -13,6 +13,8 @@ RUN pip install --no-cache-dir -r requirements.txt
 
 # 5️⃣ 複製專案文件
 COPY . .
+COPY static /app/static
+
 
 # 6️⃣ 設定 FastAPI 服務（限制 worker 避免 OOM）
 CMD ["uvicorn", "app.main:app", "--host", "0.0.0.0", "--port", "8000", "--workers", "1"]

@@ -6,14 +6,21 @@ from sqlalchemy.orm import declarative_base ,sessionmaker
 
 load_dotenv()
 
-DB_NAME = os.getenv("DB_NAME")
-DB_USER = os.getenv("DB_USER")
-DB_PASSWORD = os.getenv("DB_PASSWORD") 
-DB_HOST = os.getenv("DB_HOST")
-DB_PORT = os.getenv("DB_PORT")
+
+DATABASE_URL = os.getenv("DATABASE_URL")  # Railway的變數
+
+# 當沒有 DATABASE_URL 變數時，使用本地端的 PostgreSQL 連線資訊
+if not DATABASE_URL:
+    DB_NAME = os.getenv("DB_NAME")
+    DB_USER = os.getenv("DB_USER")
+    DB_PASSWORD = os.getenv("DB_PASSWORD") 
+    DB_HOST = os.getenv("DB_HOST")
+    DB_PORT = os.getenv("DB_PORT")
+    DB_URL = os.getenv("DB_URL")
 
 # PostgreSQL 連線字串
-DB_URL = os.getenv("DB_URL")  
+# DB_URL = os.getenv("DB_URL")  
+
 
 # 建立 SQLAlchemy 資料庫引擎
 engine = create_engine(DB_URL)
