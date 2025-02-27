@@ -5,23 +5,22 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>FastAPI NLP - 文本摘要 & 關鍵字提取</title>
     <link rel="stylesheet" href="{{ url_for('static', path='style.css') }}">
+    <script defer src="{{ url_for('static', path='script.js') }}"></script> <!-- 這裡載入 JS -->
 </head>
 <body>
     <h1>文章摘要 & 關鍵字提取</h1>
 
-    <form action="/summarize" method="post">
-        <textarea name="text" placeholder="請輸入文本..."></textarea>
+    <form id="summarize-form">
+        <textarea id="text-input" name="text" placeholder="請輸入文本..."></textarea>
         <button type="submit">生成摘要</button>
     </form>
 
-    {% if summary %}
-    <div class="result-container">
+    <div id="result-container" class="result-container" style="display: none;">
         <h3>📌 摘要：</h3>
-        <div class="summary">{{ summary }}</div>
+        <div id="summary" class="summary"></div>
 
         <h3>🔑 關鍵字：</h3>
-        <div class="keywords">{{ keywords }}</div>
+        <div id="keywords" class="keywords"></div>
     </div>
-    {% endif %}
 </body>
 </html>
