@@ -8,15 +8,15 @@ from sqlalchemy.orm import sessionmaker
 if os.getenv("RAILWAY_ENVIRONMENT_NAME") is None:
     load_dotenv()
 
-# Railway 使用 DATABASE_URL，否則使用本機的 DB_URL
+# 🔹 優先使用 Railway 的 `DATABASE_URL`，如果沒有則使用本機 `DB_URL`
 DB_URL = os.getenv("DATABASE_URL") if os.getenv("RAILWAY_ENVIRONMENT_NAME") else os.getenv("DB_URL")
 
 # 🔹 確保 DB_URL 不是 None
 if not DB_URL:
     raise ValueError("❌ DATABASE_URL or DB_URL is not set. Please check your environment variables.")
 
-# 🔹 強制加上 `sslmode=require`，確保 PostgreSQL 連線時使用 SSL
-if "sslmode" not in DB_URL:
+# 🔹 Railway 需要 `sslmode=require`
+if "sslmode" not in DB_URL and os.getenv("RAILWAY_ENVIRONMENT_NAME"):
     DB_URL += "?sslmode=require"
 
 # 建立 SQLAlchemy 資料庫引擎
