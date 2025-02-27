@@ -19,11 +19,21 @@ if not DB_URL:
 if "sslmode" not in DB_URL and os.getenv("RAILWAY_ENVIRONMENT_NAME"):
     DB_URL += "?sslmode=require"
 
-# 建立 SQLAlchemy 資料庫引擎
+# ✅ 建立 SQLAlchemy 資料庫引擎
 engine = create_engine(DB_URL)
 
-# 建立 ORM 的基底類別
+# ✅ 建立 ORM 的基底類別
 Base = declarative_base()
 
-# 建立 Session（管理資料庫連線）
+# ✅ 建立 Session（管理資料庫連線）
 SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
+
+# ✅ **延遲導入，避免循環導入錯誤**
+def init_db():
+    """手動初始化資料庫表格（如果沒有 migration tool）"""
+    from app.models import SummarizationHistory  # ✅ 這行改到函數內，避免 ImportError
+    Base.metadata.create_all(bind=engine)
+
+# ✅ Railway 自動執行 `init_db()`，但在本機手動執行
+if os.getenv("RAILWAY_ENVIRONMENT_NAME"):
+    init_db()
