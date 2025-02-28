@@ -19,7 +19,7 @@ app.add_middleware(
 )
 
 # 掛載 static 靜態文件
-app.mount("/static", StaticFiles(directory=os.path.join(os.path.dirname(__file__), "static")), name="static")
+app.mount("/static", StaticFiles(directory="static"), name="static")
 
 # 掛載 templates 模板
 templates = Jinja2Templates(directory="templates")
