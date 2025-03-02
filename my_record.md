@@ -71,12 +71,12 @@
 - 建立 Dockerfile
 - 建立 docker-compose.yml
 - 建立 Docker image (會根據 Dockerfile 設定檔案執行)
-    `docker build -t fastapi-text-nlp .`
+    `docker build -t fastapi-text-nlp-json .`
 - 運行 Docker container
-    `docker run -p 8000:8000 fastapi-text-nlp`
+    `docker run -p 8000:8000 fastapi-text-nlp-json`
 - 使用 docker-compose 啟動服務
     `docker-compose up -d` (FastAPI 會自動連接 PostgreSQL，並且都會在 Docker 內運行)
-
+- 本次嘗試兩種佈署方式: GitHub repo & image 上傳到 Docker Hub
 
 ## 套件與主要用途
 
@@ -145,4 +145,5 @@
 
 
 
-
+手動啟動Fastapi
+ `python -m uvicorn app.main:app --host 0.0.0.0 --port 8000`
