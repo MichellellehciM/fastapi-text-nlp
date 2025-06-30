@@ -1,4 +1,14 @@
+
+# Docker
+Dockerfile
+Dockerfile.dev
+docker-compose.yml
+
+my_record.md
+
 .env
+
+
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]
