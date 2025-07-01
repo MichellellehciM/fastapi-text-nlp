@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>FastAPI NLP - 文本摘要 & 關鍵字提取</title>
     <link rel="stylesheet" href="{{ url_for('static', path='style.css') }}">
-    <script defer src="{{ url_for('static', path='script.js') }}"></script> <!-- 這裡載入 JS -->
+    <script defer src="{{ url_for('static', path='script.js') }}"></script> <!-- 載入 JS -->
 </head>
 <body>
     <h1>文章摘要 & 關鍵字提取</h1>
@@ -16,10 +16,10 @@
     </form>
 
     <div id="result-container" class="result-container" style="display: none;">
-        <h3>📌 摘要：</h3>
+        <h3>1.摘要：</h3>
         <div id="summary" class="summary"></div>
 
-        <h3>🔑 關鍵字：</h3>
+        <h3>2.關鍵字：</h3>
         <div id="keywords" class="keywords"></div>
     </div>
 </body>

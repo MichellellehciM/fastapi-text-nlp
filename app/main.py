@@ -12,8 +12,6 @@ import uvicorn
 from app.routes import router  
 
 app = FastAPI()
-
-# 修正 Middleware：確保只影響「瀏覽器頁面」，API 不受影響
 class HttpsRedirectMiddleware(BaseHTTPMiddleware):
     async def dispatch(self, request: Request, call_next):
         # 確保 FastAPI 內部使用 HTTPS
@@ -23,7 +21,9 @@ class HttpsRedirectMiddleware(BaseHTTPMiddleware):
                 return RedirectResponse(url, status_code=301)
         return await call_next(request)
 
-app.add_middleware(HttpsRedirectMiddleware)
+if os.getenv("ENV", "dev") != "dev":  
+    app.add_middleware(HttpsRedirectMiddleware) # 僅在非開發環境啟用 HTTPS 重導向
+
 
 # 設定 CORS（確保 API 可以被前端存取）
 app.add_middleware(
@@ -40,6 +40,7 @@ app.mount("/static", StaticFiles(directory="static"), name="static")
 # 掛載 templates 模板
 templates = Jinja2Templates(directory="templates")
 
+# 掛載首頁路由
 @app.get("/", response_class=HTMLResponse)
 def home(request: Request):
     """ 顯示 HTML 頁面 """
@@ -48,7 +49,8 @@ def home(request: Request):
 # 掛載 API 路由
 app.include_router(router)
 
-# Railway 自動提供 PORT，確保相容性
-if __name__ == "__main__":
-    port = int(os.getenv("PORT", 8000))  # Railway 會自動提供 PORT
-    uvicorn.run(app, host="0.0.0.0", port=port)
+# Port 設定
+# Railway 使用環境變數 PORT，本機使用 .env 的 PORT
+if __name__ == "__main__": 
+    port = int(os.getenv("PORT", 8888))  
+    uvicorn.run(app, host="127.0.0.1", port=port)
